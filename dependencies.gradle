@@ -1,0 +1,25 @@
+allprojects {
+  ext {
+    // Android config
+    androidCompileSdkVersion = 27
+    androidBuildToolsVersion = '27.1.1'
+    androidMinSdkVersion = 19
+    androidTargetSdkVersion = 27
+
+    libraries = [androidSupportV7: 'com.android.support:appcompat-v7:27.1.1',
+                 constraintLayout: 'com.android.support.constraint:constraint-layout:1.1.2',
+                 supportDesign   : 'com.android.support:design:27.1.1',
+
+                 kotlinStdLib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+
+                 gggLibCore      : 'com.github.gigigoapps.gigigo-android-lib:ggglib.core:1.0.13',
+                 gggLibLogger    : 'com.github.gigigoapps.gigigo-android-lib:ggglib.logger:1.0.13']
+
+    testLibraries = [mockito     : 'org.mockito:mockito-core:2.7.9',
+                     testRunner  : 'com.android.support.test:runner:1.0.2',
+                     espressoCore: 'com.android.support.test.espresso:espresso-core:3.0.2',
+                     junit       : 'junit:junit:4.12']
+
+    modules = [gggLibPermissions: project(":ggglib.permissions")]
+  }
+}

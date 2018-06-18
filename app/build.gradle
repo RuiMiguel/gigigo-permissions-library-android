@@ -1,0 +1,36 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  compileSdkVersion rootProject.ext.androidCompileSdkVersion
+
+  defaultConfig {
+    applicationId "com.gigigo.ggglib.permissions.demoapp"
+    minSdkVersion rootProject.ext.androidMinSdkVersion
+    targetSdkVersion rootProject.ext.androidTargetSdkVersion
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  implementation rootProject.ext.libraries.androidSupportV7
+  implementation rootProject.ext.libraries.constraintLayout
+  implementation rootProject.ext.libraries.supportDesign
+  implementation rootProject.ext.libraries.kotlinStdLib
+
+  implementation project(':ggglib.permissions')
+
+  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+  testCompile rootProject.ext.testLibraries.junit
+  androidTestImplementation rootProject.ext.testLibraries.testRunner
+  androidTestImplementation rootProject.ext.testLibraries.espressoCore
+}
