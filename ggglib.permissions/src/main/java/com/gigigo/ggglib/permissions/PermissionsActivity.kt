@@ -1,6 +1,5 @@
 package com.gigigo.ggglib.permissions
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,28 +8,38 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import com.gigigo.ggglib.permissions.permission.Permission
 
 class PermissionsActivity : AppCompatActivity() {
 
   private val PERMISSIONS_REQUEST_CODE = 1
-  private val PERMISSION_REQUESTED = Manifest.permission.CAMERA
+  private lateinit var permissionRequested: Permission
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_permission)
     title = ""
 
-    if (ContextCompat.checkSelfPermission(this@PermissionsActivity, PERMISSION_REQUESTED) == PackageManager.PERMISSION_GRANTED) {
-      finishWithPermissionsGranted()
-    } else {
-      requestPermission()
+    val extraData = intent.getSerializableExtra(PERMISSION_REQUESTED)
+    extraData?.let {
+      permissionRequested = extraData as Permission
+    }
+
+    permissionRequested?.permissionGroup?.let {
+      if (ContextCompat.checkSelfPermission(this@PermissionsActivity,
+              it.permission) == PackageManager.PERMISSION_GRANTED) {
+        finishWithPermissionsGranted()
+      } else {
+        requestPermission()
+      }
     }
   }
 
   private fun requestPermission() {
-    if (ContextCompat.checkSelfPermission(this, PERMISSION_REQUESTED) != PackageManager.PERMISSION_GRANTED) {
+    if (ContextCompat.checkSelfPermission(this,
+            permissionRequested.getPermission()) != PackageManager.PERMISSION_GRANTED) {
 
-      if (ActivityCompat.shouldShowRequestPermissionRationale(this, PERMISSION_REQUESTED)) {
+      if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissionRequested.getPermission())) {
         var permissionException = PermissionException(PermissionError.PERMISSION_RATIONALE_ERROR,
             "Should show request permission rationale")
 
@@ -45,7 +54,7 @@ class PermissionsActivity : AppCompatActivity() {
 
   private fun doRequestPermission() {
     ActivityCompat.requestPermissions(this,
-        arrayOf(PERMISSION_REQUESTED), PERMISSIONS_REQUEST_CODE)
+        arrayOf(permissionRequested.getPermission()), PERMISSIONS_REQUEST_CODE)
   }
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
@@ -75,16 +84,19 @@ class PermissionsActivity : AppCompatActivity() {
   }
 
   companion object Navigator {
+    private const val PERMISSION_REQUESTED = "PERMISSION_REQUESTED"
     var onSuccess: () -> Unit = {}
     var onError: (PermissionException) -> Unit = {}
 
-    fun open(context: Context, permission: String, onSuccess: () -> Unit = {},
+    fun open(context: Context, permission: Permission,
+        onSuccess: () -> Unit = {},
         onError: (PermissionException) -> Unit = {}) {
 
       this.onSuccess = onSuccess
       this.onError = onError
 
       val intent = Intent(context, PermissionsActivity::class.java)
+      intent.putExtra(PERMISSION_REQUESTED, permission)
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
       context.startActivity(intent)
     }
