@@ -26,7 +26,6 @@ dependencies {
   implementation rootProject.ext.libraries.supportDesign
   implementation rootProject.ext.libraries.kotlinStdLib
 
-  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
   testCompile rootProject.ext.testLibraries.junit
   androidTestImplementation rootProject.ext.testLibraries.testRunner
   androidTestImplementation rootProject.ext.testLibraries.espressoCore
