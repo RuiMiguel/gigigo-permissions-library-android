@@ -1,12 +1,13 @@
 package com.gigigo.ggglib.permissions
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import com.gigigo.ggglib.permissions.permission.Permission
 
@@ -39,17 +40,25 @@ class PermissionsActivity : AppCompatActivity() {
     if (ContextCompat.checkSelfPermission(this,
             permissionRequested.getPermission()) != PackageManager.PERMISSION_GRANTED) {
 
-      if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissionRequested.getPermission())) {
-        var permissionException = PermissionException(PermissionError.PERMISSION_RATIONALE_ERROR,
+      if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+              permissionRequested.getPermission())) {
+        val permissionException = PermissionException(PermissionError.PERMISSION_RATIONALE_ERROR,
             "Should show request permission rationale")
-
-        Snackbar.make(window.decorView.rootView, permissionException.error, Snackbar.LENGTH_LONG)
-            .setAction("retry", { doRequestPermission() })
-            .show()
+        showRequestRationale(permissionException)
       } else {
         doRequestPermission()
       }
     }
+  }
+
+  private fun showRequestRationale(permissionException: PermissionException) {
+    val dialog = AlertDialog.Builder(this)
+        .setCancelable(false)
+        .setMessage(permissionException.error)
+        .setPositiveButton(android.R.string.ok, { _, _ -> doRequestPermission() })
+        .create()
+
+    dialog.show()
   }
 
   private fun doRequestPermission() {
@@ -89,6 +98,7 @@ class PermissionsActivity : AppCompatActivity() {
     var onError: (PermissionException) -> Unit = {}
 
     fun open(context: Context, permission: Permission,
+
         onSuccess: () -> Unit = {},
         onError: (PermissionException) -> Unit = {}) {
 

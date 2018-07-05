@@ -29,6 +29,7 @@ dependencies {
 
   implementation project(':ggglib.permissions')
 
+  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
   testCompile rootProject.ext.testLibraries.junit
   androidTestImplementation rootProject.ext.testLibraries.testRunner
   androidTestImplementation rootProject.ext.testLibraries.espressoCore

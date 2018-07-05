@@ -6,6 +6,8 @@ interface PermissionGroup {
   val permission: String
 }
 
+class PermissionGroupCustom(override val permission: String): PermissionGroup
+
 enum class PermissionGroupCalendar(override val permission: String) : PermissionGroup {
   READ_CALENDAR(Manifest.permission.READ_CALENDAR),
   WRITE_CALENDAR(Manifest.permission.WRITE_CALENDAR);
