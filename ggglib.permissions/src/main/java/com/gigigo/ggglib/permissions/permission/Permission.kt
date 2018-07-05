@@ -149,26 +149,37 @@ STORAGE
 //endregion
 
 interface Permission : Serializable {
+  val rationale: String
   val permissionGroup: PermissionGroup
   fun getPermission() = permissionGroup.permission
 }
 
-data class PermissionCustom(override val permissionGroup: PermissionGroupCustom) : Permission
+data class PermissionCustom(override val permissionGroup: PermissionGroupCustom,
+    override val rationale: String) : Permission
 
-data class PermissionCalendar(override val permissionGroup: PermissionGroupCalendar) : Permission
+data class PermissionCalendar(override val permissionGroup: PermissionGroupCalendar,
+    override val rationale: String) : Permission
 
-data class PermissionCamera(override val permissionGroup: PermissionGroupCamera) : Permission
+data class PermissionCamera(override val permissionGroup: PermissionGroupCamera,
+    override val rationale: String) : Permission
 
-data class PermissionContacts(override val permissionGroup: PermissionGroupContacts) : Permission
+data class PermissionContacts(override val permissionGroup: PermissionGroupContacts,
+    override val rationale: String) : Permission
 
-data class PermissionLocation(override val permissionGroup: PermissionGroupLocation) : Permission
+data class PermissionLocation(override val permissionGroup: PermissionGroupLocation,
+    override val rationale: String) : Permission
 
-data class PermissionMicrophone(override val permissionGroup: PermissionGroupMicrophone) : Permission
+data class PermissionMicrophone(override val permissionGroup: PermissionGroupMicrophone,
+    override val rationale: String) : Permission
 
-data class PermissionPhone(override val permissionGroup: PermissionGroupPhone) : Permission
+data class PermissionPhone(override val permissionGroup: PermissionGroupPhone,
+    override val rationale: String) : Permission
 
-data class PermissionSensors(override val permissionGroup: PermissionGroupSensors) : Permission
+data class PermissionSensors(override val permissionGroup: PermissionGroupSensors,
+    override val rationale: String) : Permission
 
-data class PermissionSms(override val permissionGroup: PermissionGroupSms) : Permission
+data class PermissionSms(override val permissionGroup: PermissionGroupSms,
+    override val rationale: String) : Permission
 
-data class PermissionStorage(override val permissionGroup: PermissionGroupStorage) : Permission
+data class PermissionStorage(override val permissionGroup: PermissionGroupStorage,
+    override val rationale: String) : Permission

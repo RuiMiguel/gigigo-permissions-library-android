@@ -43,7 +43,7 @@ class PermissionsActivity : AppCompatActivity() {
       if (ActivityCompat.shouldShowRequestPermissionRationale(this,
               permissionRequested.getPermission())) {
         val permissionException = PermissionException(PermissionError.PERMISSION_RATIONALE_ERROR,
-            "Should show request permission rationale")
+            permissionRequested.rationale)
         showRequestRationale(permissionException)
       } else {
         doRequestPermission()

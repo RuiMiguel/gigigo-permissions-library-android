@@ -47,16 +47,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fab_camera.setOnClickListener {
-      requestPermission(PermissionCamera(CAMERA))
+      requestPermission(PermissionCamera(CAMERA, "camera its needed!"))
     }
     fab_location.setOnClickListener {
-      requestPermission(PermissionLocation(ACCESS_FINE_LOCATION))
+      requestPermission(PermissionLocation(ACCESS_FINE_LOCATION, "please let me find you!"))
     }
     fab_storage_read.setOnClickListener {
-      requestPermission(PermissionStorage(READ_EXTERNAL_STORAGE))
+      requestPermission(PermissionStorage(READ_EXTERNAL_STORAGE, "I need to read from SD!"))
     }
     fab_storage_write.setOnClickListener {
-      requestPermission(PermissionStorage(WRITE_EXTERNAL_STORAGE))
+      requestPermission(PermissionStorage(WRITE_EXTERNAL_STORAGE, "I need to write in SD!"))
     }
 
     // custom permission for new ones
