@@ -1,25 +1,29 @@
 allprojects {
-  ext {
-    // Android config
-    androidCompileSdkVersion = 27
-    androidBuildToolsVersion = '27.1.1'
-    androidMinSdkVersion = 19
-    androidTargetSdkVersion = 27
+    ext {
+        androidSdk = [
+                target : 28,
+                compile: 28,
+                min    : 19
+        ]
 
-    libraries = [androidSupportV7: 'com.android.support:appcompat-v7:27.1.1',
-                 constraintLayout: 'com.android.support.constraint:constraint-layout:1.1.2',
-                 supportDesign   : 'com.android.support:design:27.1.1',
+        libraries = [appcompat          : '1.1.0-alpha02',
+                     legacySupport      : '1.0.0',
+                     material           : '1.1.0-alpha03',
+                     constraintLayout   : '1.1.3',
+                     annotations        : '15.0',
+                     recyclerView       : '1.1.0-alpha02',
+                     ktx                : '1.1.0-alpha04']
 
-                 kotlinStdLib    : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+        testLibraries = [junit       : '4.12',
+                         runner      : '1.1.2-alpha01',
+                         espresso    : '3.1.2-alpha01',
+                         truth       : '0.42',
+                         androidTruth: '1.0.0',
+                         core        : '1.0.0',
+                         assertj     : '3.11.1',
+                         mockito     : '2.23.4',
+                         mockitokt   : '2.1.0']
 
-                 gggLibCore      : 'com.github.gigigoapps.gigigo-android-lib:ggglib.core:1.0.13',
-                 gggLibLogger    : 'com.github.gigigoapps.gigigo-android-lib:ggglib.logger:1.0.13']
-
-    testLibraries = [mockito     : 'org.mockito:mockito-core:2.7.9',
-                     testRunner  : 'com.android.support.test:runner:1.0.2',
-                     espressoCore: 'com.android.support.test.espresso:espresso-core:3.0.2',
-                     junit       : 'junit:junit:4.12']
-
-    modules = [gggLibPermissions: project(":ggglib.permissions")]
-  }
+        modules = [gggLibPermissions: project(":ggglib.permissions")]
+    }
 }

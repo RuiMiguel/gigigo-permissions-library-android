@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-  compileSdkVersion rootProject.ext.androidCompileSdkVersion
+  compileSdkVersion androidSdk.compile
 
   defaultConfig {
-    minSdkVersion rootProject.ext.androidMinSdkVersion
-    targetSdkVersion rootProject.ext.androidTargetSdkVersion
+    minSdkVersion androidSdk.min
+    targetSdkVersion androidSdk.target
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 
   buildTypes {
@@ -19,14 +19,28 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  testOptions {
+    unitTests.returnDefaultValues = true
+  }
 }
 
 dependencies {
-  implementation rootProject.ext.libraries.androidSupportV7
-  implementation rootProject.ext.libraries.supportDesign
-  implementation rootProject.ext.libraries.kotlinStdLib
+  api "androidx.appcompat:appcompat:$libraries.appcompat"
+  api "androidx.constraintlayout:constraintlayout:$libraries.constraintLayout"
+  api "com.google.android.material:material:$libraries.material"
 
-  testCompile rootProject.ext.testLibraries.junit
-  androidTestImplementation rootProject.ext.testLibraries.testRunner
-  androidTestImplementation rootProject.ext.testLibraries.espressoCore
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  api "androidx.core:core-ktx:$libraries.ktx"
+
+  // Android test dependencies
+  androidTestImplementation "org.mockito:mockito-android:${testLibraries.mockito}"
+  androidTestImplementation "androidx.test:core:${testLibraries.core}"
+  androidTestImplementation "androidx.test:runner:${testLibraries.runner}"
+  androidTestImplementation "androidx.test:rules:${testLibraries.runner}"
+  androidTestImplementation "androidx.test.ext:truth:${testLibraries.androidTruth}"
+  androidTestImplementation "com.google.truth:truth:${testLibraries.truth}"
+  androidTestImplementation "androidx.test.espresso:espresso-core:${testLibraries.espresso}"
+  androidTestImplementation "androidx.test.espresso:espresso-contrib:${testLibraries.espresso}"
+  androidTestImplementation "com.google.android.material:material:${testLibraries.material}"
 }

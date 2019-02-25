@@ -1,111 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+    android:layout_height="match_parent">
 
-  <android.support.design.widget.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:theme="@style/AppTheme.AppBarOverlay"
-      >
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        />
-
-  </android.support.design.widget.AppBarLayout>
-
-  <include
-      layout="@layout/content_main"
-      android:id="@+id/include"
-      />
-
-
-  <android.support.constraint.ConstraintLayout
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:layout_anchor="@+id/include"
-      app:layout_anchorGravity="right|bottom"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      tools:context=".MainActivity"
-      tools:showIn="@layout/activity_main"
-      >
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main" />
 
     <LinearLayout
         android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="parent"
-        android:visibility="gone"
-        >
-      <android.support.design.widget.FloatingActionButton
-          android:id="@+id/fab_camera"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="bottom|end"
-          android:layout_margin="@dimen/fab_margin"
-          android:tag="camera"
-          android:textDirection="ltr"
-          app:srcCompat="@android:drawable/ic_media_play"
-          />
-      <android.support.design.widget.FloatingActionButton
-          android:id="@+id/fab_location"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="bottom|end"
-          android:layout_margin="@dimen/fab_margin"
-          app:srcCompat="@android:drawable/ic_media_play"
-          />
-      <android.support.design.widget.FloatingActionButton
-          android:id="@+id/fab_storage_read"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="bottom|end"
-          android:layout_margin="@dimen/fab_margin"
-          app:srcCompat="@android:drawable/ic_media_play"
-          />
-      <android.support.design.widget.FloatingActionButton
-          android:id="@+id/fab_storage_write"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="bottom|end"
-          android:layout_margin="@dimen/fab_margin"
-          app:srcCompat="@android:drawable/ic_media_play"
-          />
+        tools:visibility="visible">
+
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Camera" />
+
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Location" />
+
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_storage_read"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Storage read" />
+
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_storage_write"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Storage write" />
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="16dp"
+        app:button_image="@android:drawable/ic_input_add"
+        app:button_text="Add permission"
+        app:button_text_position="left"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        />
-  </android.support.constraint.ConstraintLayout>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_clean"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_margin="@dimen/fab_margin"
-      android:layout_gravity="start|bottom"
-      app:srcCompat="@android:drawable/ic_input_delete"
-      />
+    <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+        android:id="@+id/fab_clean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:button_image="@android:drawable/ic_input_delete"
+        app:button_text="Clear"
+        app:button_text_position="right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
