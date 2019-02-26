@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="CustomFloatingButton">
+    <attr name="button_text" format="string" />
+    <attr format="enum" name="button_text_position">
+      <enum name="left" value="0" />
+      <enum name="right" value="1" />
+    </attr>
+    <attr name="button_image" format="reference" />
+  </declare-styleable>
+</resources>

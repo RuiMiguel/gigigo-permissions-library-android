@@ -4,14 +4,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-  compileSdkVersion rootProject.ext.androidCompileSdkVersion
+  compileSdkVersion androidSdk.compile
 
   defaultConfig {
+    minSdkVersion androidSdk.min
+    targetSdkVersion androidSdk.target
     applicationId "com.gigigo.ggglib.permissions.demoapp"
-    minSdkVersion rootProject.ext.androidMinSdkVersion
-    targetSdkVersion rootProject.ext.androidTargetSdkVersion
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    versionCode generateAutoVersionCode()
+    versionName generateVersionName([major: 2, minor: 0, patch: 0])
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
   buildTypes {
     release {
@@ -22,15 +24,23 @@ android {
 }
 
 dependencies {
-  implementation rootProject.ext.libraries.androidSupportV7
-  implementation rootProject.ext.libraries.constraintLayout
-  implementation rootProject.ext.libraries.supportDesign
-  implementation rootProject.ext.libraries.kotlinStdLib
+  implementation "androidx.appcompat:appcompat:$libraries.appcompat"
+  implementation "androidx.constraintlayout:constraintlayout:$libraries.constraintLayout"
+  implementation "com.google.android.material:material:$libraries.material"
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation "androidx.core:core-ktx:$libraries.ktx"
 
   implementation project(':ggglib.permissions')
 
-  implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-  testCompile rootProject.ext.testLibraries.junit
-  androidTestImplementation rootProject.ext.testLibraries.testRunner
-  androidTestImplementation rootProject.ext.testLibraries.espressoCore
+  // Android test dependencies
+  androidTestImplementation "org.mockito:mockito-android:${testLibraries.mockito}"
+  androidTestImplementation "androidx.test:core:${testLibraries.core}"
+  androidTestImplementation "androidx.test:runner:${testLibraries.runner}"
+  androidTestImplementation "androidx.test:rules:${testLibraries.runner}"
+  androidTestImplementation "androidx.test.ext:truth:${testLibraries.androidTruth}"
+  androidTestImplementation "com.google.truth:truth:${testLibraries.truth}"
+  androidTestImplementation "androidx.test.espresso:espresso-core:${testLibraries.espresso}"
+  androidTestImplementation "androidx.test.espresso:espresso-contrib:${testLibraries.espresso}"
+  androidTestImplementation "com.google.android.material:material:${testLibraries.material}"
 }

@@ -2,4 +2,13 @@
   <string name="app_name">Permissions</string>
   <string name="action_settings">Settings</string>
   <string name="title_activity_main2">Main2Activity</string>
+  <string name="permission_camera_needed">camera its needed!</string>
+  <string name="permission_read_sd">I need to read from SD!</string>
+  <string name="permission_write_sd">I need to write in SD!</string>
+  <string name="permission_fine_location">please let me find you!</string>
+  <string name="permission_guarantied">Permission guarantied!</string>
+  <string name="permission_guarantied_message">%1s guarantied! \n</string>
+  <string name="permission_denied_message">%1s denied! \n</string>
+  <string name="permission_denied">Permission denied</string>
+  <string name="retry">Retry</string>
 </resources>

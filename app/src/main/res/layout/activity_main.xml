@@ -1,38 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    >
+    android:layout_height="match_parent">
 
-  <android.support.design.widget.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:theme="@style/AppTheme.AppBarOverlay"
-      >
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        />
+    <LinearLayout
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/fab"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible">
 
-  </android.support.design.widget.AppBarLayout>
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Camera" />
 
-  <include layout="@layout/content_main"/>
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Location" />
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|end"
-      android:layout_margin="@dimen/fab_margin"
-      app:srcCompat="@android:drawable/ic_dialog_email"
-      />
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_storage_read"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Storage read" />
 
-</android.support.design.widget.CoordinatorLayout>
+        <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+            android:id="@+id/fab_storage_write"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            app:button_image="@android:drawable/ic_media_play"
+            app:button_text="Storage write" />
+    </LinearLayout>
+
+    <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:button_image="@android:drawable/ic_input_add"
+        app:button_text="Add permission"
+        app:button_text_position="left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.gigigo.ggglib.permissions.demoapp.CustomFloatingButton
+        android:id="@+id/fab_clean"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:button_image="@android:drawable/ic_input_delete"
+        app:button_text="Clear"
+        app:button_text_position="right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
