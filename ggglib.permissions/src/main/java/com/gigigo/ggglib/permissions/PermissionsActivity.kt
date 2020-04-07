@@ -4,16 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.gigigo.ggglib.permissions.permission.Permission
+import com.gigigo.ggglib.permissions.rationale.DefaultRationaleDialog
+import com.gigigo.ggglib.permissions.rationale.RationaleDialog
 
 open class PermissionsActivity : AppCompatActivity() {
-
     private val PERMISSIONS_REQUEST_CODE = 1
     private lateinit var permissionRequested: Permission
+    private var rationaleDialog: RationaleDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +37,10 @@ open class PermissionsActivity : AppCompatActivity() {
                 requestPermission()
             }
         }
+    }
+
+    fun <T : RationaleDialog> setRationaleDialog(customRationaleDialog: T) {
+        rationaleDialog = customRationaleDialog
     }
 
     private fun requestPermission() {
@@ -62,13 +67,12 @@ open class PermissionsActivity : AppCompatActivity() {
     }
 
     private fun showRequestRationale(permissionException: PermissionException) {
-        val dialog = AlertDialog.Builder(this)
-            .setCancelable(false)
-            .setMessage(permissionException.error)
-            .setPositiveButton(android.R.string.ok) { _, _ -> doRequestPermission() }
-            .create()
-
-        dialog.show()
+        if(rationaleDialog == null) {
+            setRationaleDialog(DefaultRationaleDialog(context = this))
+        }
+        rationaleDialog?.show(permissionException.error) {
+            doRequestPermission()
+        }
     }
 
     private fun doRequestPermission() {
